@@ -56,11 +56,10 @@ export interface Subtask {
   id: string;
   task_id: string;
   title: string;
-  status: SubtaskStatus;
+  status: boolean;
   position: number;
   created_at: Date;
   updated_at: Date;
 }
 
 export type TaskStatus = 'todo' | 'doing' | 'done';
-export type SubtaskStatus = 'todo' | 'doing' | 'done';

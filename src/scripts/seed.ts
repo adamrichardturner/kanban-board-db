@@ -390,54 +390,54 @@ async function seedDatabase(): Promise<void> {
 function generateSubtasks(
   taskTitle: string,
   column: string
-): Array<{ title: string; status: string }> {
-  const subtaskTemplates: Record<string, Array<{ title: string; status: string }>> = {
+): Array<{ title: string; status: boolean }> {
+  const subtaskTemplates: Record<string, Array<{ title: string; status: boolean }>> = {
     'Learn TypeScript': [
-      { title: 'Complete basic types tutorial', status: 'done' },
-      { title: 'Practice with interfaces and classes', status: 'doing' },
-      { title: 'Build small project with TypeScript', status: 'todo' },
+      { title: 'Complete basic types tutorial', status: true },
+      { title: 'Practice with interfaces and classes', status: true },
+      { title: 'Build small project with TypeScript', status: false },
     ],
     'Build Portfolio Website': [
-      { title: 'Design wireframes and layout', status: 'todo' },
-      { title: 'Set up Next.js project', status: 'todo' },
-      { title: 'Deploy to Vercel', status: 'todo' },
+      { title: 'Design wireframes and layout', status: false },
+      { title: 'Set up Next.js project', status: false },
+      { title: 'Deploy to Vercel', status: false },
     ],
     'Set up Home Office': [
-      { title: 'Purchase ergonomic chair', status: 'done' },
-      { title: 'Install proper lighting', status: 'done' },
+      { title: 'Purchase ergonomic chair', status: true },
+      { title: 'Install proper lighting', status: true },
     ],
     'Read "Clean Code"': [
-      { title: 'Read chapters 1-5', status: 'done' },
-      { title: 'Take notes on key principles', status: 'doing' },
-      { title: 'Apply concepts to current project', status: 'todo' },
+      { title: 'Read chapters 1-5', status: true },
+      { title: 'Take notes on key principles', status: true },
+      { title: 'Apply concepts to current project', status: false },
     ],
     'Complete Q4 Performance Review': [
-      { title: 'Gather project accomplishments', status: 'doing' },
-      { title: 'Request feedback from colleagues', status: 'todo' },
-      { title: 'Schedule meeting with manager', status: 'todo' },
+      { title: 'Gather project accomplishments', status: true },
+      { title: 'Request feedback from colleagues', status: false },
+      { title: 'Schedule meeting with manager', status: false },
     ],
     'Implement New Feature': [
-      { title: 'Write technical specification', status: 'done' },
-      { title: 'Implement core functionality', status: 'doing' },
-      { title: 'Write comprehensive tests', status: 'todo' },
+      { title: 'Write technical specification', status: true },
+      { title: 'Implement core functionality', status: true },
+      { title: 'Write comprehensive tests', status: false },
     ],
     'Fix Production Bug': [
-      { title: 'Reproduce bug in development', status: 'done' },
-      { title: 'Implement fix and test', status: 'done' },
+      { title: 'Reproduce bug in development', status: true },
+      { title: 'Implement fix and test', status: true },
     ],
     'Plan Weekend Trip': [
-      { title: 'Research destinations', status: 'done' },
-      { title: 'Book accommodation', status: 'doing' },
-      { title: 'Plan activities and restaurants', status: 'todo' },
+      { title: 'Research destinations', status: true },
+      { title: 'Book accommodation', status: true },
+      { title: 'Plan activities and restaurants', status: false },
     ],
     'Exercise Routine': [
-      { title: 'Choose workout program', status: 'done' },
-      { title: 'Schedule workout times', status: 'doing' },
-      { title: 'Track progress weekly', status: 'todo' },
+      { title: 'Choose workout program', status: true },
+      { title: 'Schedule workout times', status: true },
+      { title: 'Track progress weekly', status: false },
     ],
     'Cook New Recipe': [
-      { title: 'Shop for ingredients', status: 'done' },
-      { title: 'Prepare and cook meal', status: 'done' },
+      { title: 'Shop for ingredients', status: true },
+      { title: 'Prepare and cook meal', status: true },
     ],
   };
 
@@ -447,17 +447,17 @@ function generateSubtasks(
   if (!subtasks) {
     // Generate 2-3 generic subtasks based on column status
     const genericSubtasks = [
-      { title: 'Research and planning', status: 'todo' },
-      { title: 'Implementation phase', status: 'todo' },
-      { title: 'Review and finalize', status: 'todo' },
+      { title: 'Research and planning', status: false },
+      { title: 'Implementation phase', status: false },
+      { title: 'Review and finalize', status: false },
     ];
 
     // Adjust status based on column
     if (column === 'Done') {
-      genericSubtasks.forEach(subtask => (subtask.status = 'done'));
+      genericSubtasks.forEach(subtask => (subtask.status = true));
     } else if (column === 'In Progress') {
-      if (genericSubtasks[0]) genericSubtasks[0].status = 'done';
-      if (genericSubtasks[1]) genericSubtasks[1].status = 'doing';
+      if (genericSubtasks[0]) genericSubtasks[0].status = true;
+      if (genericSubtasks[1]) genericSubtasks[1].status = true;
     }
 
     subtasks = genericSubtasks.slice(0, Math.floor(Math.random() * 2) + 2); // 2-3 subtasks

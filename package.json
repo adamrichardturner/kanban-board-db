@@ -48,6 +48,7 @@
     "reset": "npm run db:reset",
     "seed": "npm run db:seed",
     "status": "npm run db:status && npm run migrate:status",
+    "check": "./scripts/status.sh",
     "// Formatting Commands": "",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -56,7 +57,6 @@
     "lint": "eslint src --ext .ts,.js",
     "lint:fix": "eslint src --ext .ts,.js --fix",
     "// Combined Commands": "",
-    "check": "npm run type-check && npm run format:check && npm run lint",
     "fix": "npm run format:fix && npm run lint:fix"
   },
   "keywords": [

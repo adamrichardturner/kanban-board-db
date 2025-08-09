@@ -14,7 +14,9 @@ if [ ! -f ".env.production" ]; then
     exit 1
 fi
 
-export $(cat .env.production | xargs)
+set -a  # automatically export all variables
+source .env.production
+set +a  # disable automatic export
 
 echo "📦 Building and starting PostgreSQL container..."
 docker compose -f docker-compose.prod.yml --env-file .env.production up -d

@@ -11,7 +11,9 @@ if [ ! -f ".env.production" ]; then
     exit 1
 fi
 
-export $(cat .env.production | xargs)
+set -a  # automatically export all variables
+source .env.production
+set +a  # disable automatic export
 
 # Stop and remove all containers and volumes
 docker compose -f docker-compose.prod.yml down -v --remove-orphans

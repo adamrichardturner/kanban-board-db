@@ -39,7 +39,7 @@ nano .env.production
 
 ```bash
 # Allow PostgreSQL port (restrict to specific IPs if possible)
-sudo ufw allow 5432/tcp
+sudo ufw allow 5433/tcp
 
 # Allow HTTP/HTTPS for health checks
 sudo ufw allow 80/tcp
@@ -99,7 +99,7 @@ curl https://kanban-db.adamrichardturner.dev/health
 ## Database Connection Details
 
 - **Host**: kanban-db.adamrichardturner.dev
-- **Port**: 5432
+- **Port**: 5433
 - **Database**: kanban_board
 - **User**: kanban_user
 - **Password**: (from .env.production)
@@ -109,7 +109,7 @@ curl https://kanban-db.adamrichardturner.dev/health
 Set these in your Vercel project settings:
 
 ```
-DATABASE_URL=postgresql://kanban_user:your_password@kanban-db.adamrichardturner.dev:5432/kanban_board
+DATABASE_URL=postgresql://kanban_user:your_password@kanban-db.adamrichardturner.dev:5433/kanban_board
 DATABASE_SSL=require
 ```
 

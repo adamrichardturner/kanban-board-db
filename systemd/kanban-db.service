@@ -1,0 +1,34 @@
+[Unit]
+Description=Kanban Board Database
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/var/www/kanban-board-db
+ExecStartPre=/usr/bin/docker compose -f docker-compose.prod.yml --env-file .env.production down -v
+ExecStart=/usr/bin/docker compose -f docker-compose.prod.yml --env-file .env.production up -d
+ExecStartPost=/bin/sleep 15
+ExecStartPost=/usr/bin/npm run migrate:up
+ExecStartPost=/usr/bin/npm run db:seed
+ExecStop=/usr/bin/docker compose -f docker-compose.prod.yml down
+ExecReload=/usr/bin/docker compose -f docker-compose.prod.yml --env-file .env.production restart
+User=adamturner
+Group=adamturner
+Environment=NODE_ENV=production
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/kanban-board-db
+
+# Restart policy
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

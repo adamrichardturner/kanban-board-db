@@ -21,7 +21,7 @@ fi
 export $(cat .env.production | xargs)
 
 echo "📦 Building and starting PostgreSQL container..."
-docker-compose -f docker-compose.prod.yml --env-file .env.production up -d
+docker compose -f docker-compose.prod.yml --env-file .env.production up -d
 
 echo "⏳ Waiting for PostgreSQL to be ready..."
 sleep 15
@@ -37,6 +37,6 @@ echo "🌱 Seeding initial data..."
 npm run db:seed
 
 echo "✅ Database deployment completed successfully!"
-echo "📊 Database is running on port 5432"
-echo "🔍 Check status with: docker-compose -f docker-compose.prod.yml ps"
-echo "📝 View logs with: docker-compose -f docker-compose.prod.yml logs -f postgres"
+echo "📊 Database is running on port ${POSTGRES_PORT:-5433}"
+echo "🔍 Check status with: docker compose -f docker-compose.prod.yml ps"
+echo "📝 View logs with: docker compose -f docker-compose.prod.yml logs -f postgres"

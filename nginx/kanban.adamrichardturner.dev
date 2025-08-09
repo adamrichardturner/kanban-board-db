@@ -1,0 +1,41 @@
+server {
+    listen 80;
+    server_name kanban.adamrichardturner.dev;
+    
+    # Health check endpoint
+    location /health {
+        access_log off;
+        return 200 "Database server healthy\n";
+        add_header Content-Type text/plain;
+    }
+    
+    # Block all other HTTP traffic - database should only be accessed via SSL
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name kanban.adamrichardturner.dev;
+    
+    # Health check endpoint (for monitoring)
+    location /health {
+        access_log off;
+        return 200 "Database server healthy\n";
+        add_header Content-Type text/plain;
+    }
+    
+    # Block web access to database - this is just for health checks
+    # The actual database connection will be direct on port 5432
+    location / {
+        return 404;
+    }
+    
+    # Security headers
+    add_header X-Frame-Options DENY;
+    add_header X-Content-Type-Options nosniff;
+    add_header X-XSS-Protection "1; mode=block";
+    
+    # SSL will be configured by certbot
+}

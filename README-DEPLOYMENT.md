@@ -60,10 +60,10 @@ sudo ufw enable
 
 ```bash
 # Copy nginx config
-sudo cp nginx/kanban.adamrichardturner.dev /etc/nginx/sites-available/
+sudo cp nginx/kanban-db.adamrichardturner.dev /etc/nginx/sites-available/
 
 # Enable the site
-sudo ln -s /etc/nginx/sites-available/kanban.adamrichardturner.dev /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/kanban-db.adamrichardturner.dev /etc/nginx/sites-enabled/
 
 # Test nginx config
 sudo nginx -t
@@ -79,7 +79,7 @@ sudo systemctl reload nginx
 sudo apt install certbot python3-certbot-nginx
 
 # Get SSL certificate
-sudo certbot --nginx -d kanban.adamrichardturner.dev
+sudo certbot --nginx -d kanban-db.adamrichardturner.dev
 ```
 
 ### 7. Verification
@@ -93,12 +93,12 @@ docker-compose -f docker-compose.prod.yml ps
 npm run db:status
 
 # Check health endpoint
-curl https://kanban.adamrichardturner.dev/health
+curl https://kanban-db.adamrichardturner.dev/health
 ```
 
 ## Database Connection Details
 
-- **Host**: kanban.adamrichardturner.dev
+- **Host**: kanban-db.adamrichardturner.dev
 - **Port**: 5432
 - **Database**: kanban_board
 - **User**: kanban_user
@@ -109,7 +109,7 @@ curl https://kanban.adamrichardturner.dev/health
 Set these in your Vercel project settings:
 
 ```
-DATABASE_URL=postgresql://kanban_user:your_password@kanban.adamrichardturner.dev:5432/kanban_board
+DATABASE_URL=postgresql://kanban_user:your_password@kanban-db.adamrichardturner.dev:5432/kanban_board
 DATABASE_SSL=require
 ```
 

@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name kanban.adamrichardturner.dev;
+    server_name kanban-db.adamrichardturner.dev;
     
     # Health check endpoint
     location /health {
@@ -17,7 +17,7 @@ server {
 
 server {
     listen 443 ssl;
-    server_name kanban.adamrichardturner.dev;
+    server_name kanban-db.adamrichardturner.dev;
     
     # Health check endpoint (for monitoring)
     location /health {
